@@ -1,0 +1,13 @@
+{
+  "name": "kanban-cypress-portfolio",
+  "version": "1.0.0",
+  "description": "Portfólio de testes E2E com Cypress para Kanban App",
+  "scripts": {
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
+  },
+  "devDependencies": {
+    "cypress": "^14.5.4",
+    "@4tw/cypress-drag-drop": "^2.3.0"
+  }
+}
