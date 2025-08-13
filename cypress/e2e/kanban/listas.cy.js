@@ -1,11 +1,30 @@
-Cypress.Commands.add('criarLista', (nome) => { 
-    cy.contains('div', /Adicionar outra lista|Add another list/)
-      .should('be.visible')
-      .click(); 
+/// <reference types="cypress" />
 
-    cy.get('input[placeholder="Nova Lista"], input[placeholder="New List"]')
-      .should('be.visible')
-      .type(`${nome}{enter}`); 
+describe('Kanban - Listas, Atividades e Tags', () => {
+  beforeEach(() => {
+    // Acesse o site antes de cada teste
+    cy.visit('https://kanban-dusky-five.vercel.app/');
+  });
 
-    cy.contains(nome).should('exist'); 
+  it('Deve criar uma nova lista', () => {
+    cy.criarLista('Lista de Teste');
+  });
+
+  it('Deve criar uma nova atividade dentro de uma lista', () => {
+    // Primeiro cria a lista, se ainda não existir
+    cy.criarLista('Lista de Atividades');
+
+    // Cria a atividade dentro dessa lista
+    cy.criarAtividade('Atividade de Teste', 'Lista de Atividades');
+  });
+
+  it('Deve adicionar uma tag a uma atividade', () => {
+    // Primeiro cria a lista e a atividade
+    cy.criarLista('Lista com Tag');
+    cy.criarAtividade('Atividade com Tag', 'Lista com Tag');
+
+    // Adiciona a tag
+    cy.adicionarTag('Atividade com Tag', 'Importante');
+  });
 });
+
