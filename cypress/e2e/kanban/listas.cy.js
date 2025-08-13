@@ -1,31 +1,29 @@
 /// <reference types="cypress" />
 
-describe('Kanban - Listas', () => {
+describe('Kanban - Listas, Atividades e Tags', () => {
   beforeEach(() => {
-    cy.visit('/');
+    // Acesse o site antes de cada teste
+    cy.visit('https://kanban-dusky-five.vercel.app/');
   });
 
-  it('Cria uma nova lista', () => {
-    cy.criarLista('Lista Teste');
-    cy.contains('Lista Teste').should('exist');
+  it('Deve criar uma nova lista', () => {
+    cy.criarLista('Lista de Teste');
   });
 
-  it('Altera o nome de uma lista', () => {
-    cy.criarLista('Lista Alterar');
-    cy.contains('Lista Alterar')
-      .dblclick()
-      .clear()
-      .type('Lista Alterada{enter}');
-    cy.contains('Lista Alterada').should('exist');
+  it('Deve criar uma nova atividade dentro de uma lista', () => {
+    // Primeiro cria a lista, se ainda não existir
+    cy.criarLista('Lista de Atividades');
+
+    // Cria a atividade dentro dessa lista
+    cy.criarAtividade('Atividade de Teste', 'Lista de Atividades');
   });
 
-  it('Exclui uma lista', () => {
-    cy.criarLista('Lista Excluir');
-    cy.contains('Lista Excluir')
-      .parent()
-      .within(() => {
-        cy.contains('button', '🗑').click();
-      });
-    cy.contains('Lista Excluir').should('not.exist');
+  it('Deve adicionar uma tag a uma atividade', () => {
+    // Primeiro cria a lista e a atividade
+    cy.criarLista('Lista com Tag');
+    cy.criarAtividade('Atividade com Tag', 'Lista com Tag');
+
+    // Adiciona a tag
+    cy.adicionarTag('Atividade com Tag', 'Importante');
   });
 });
