@@ -12,7 +12,7 @@ describe('Kanban - Listas, Atividades e Tags', () => {
 
   it('Deve criar uma nova atividade dentro de uma lista', () => {
     // Primeiro cria a lista, se ainda não existir
-   // cy.criarLista('Lista de Atividades');
+    cy.criarLista('Lista de Teste');
 
     // Cria a atividade dentro dessa lista
     cy.criarAtividade('Atividade de Teste', 'Lista de Teste');
@@ -20,7 +20,7 @@ describe('Kanban - Listas, Atividades e Tags', () => {
 
   it('Deve adicionar uma tag a uma atividade', () => {
     // Primeiro cria a lista e a atividade
-    //cy.criarLista('Lista com Tag');
+    cy.criarLista('Lista de Teste');
     cy.criarAtividade('Atividade com Tag', 'Lista de Teste');
 
     // Adiciona a tag
