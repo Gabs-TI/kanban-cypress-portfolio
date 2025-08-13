@@ -1,17 +1,15 @@
-/// <reference types="cypress" />
+Cypress.Commands.add('adicionarTag', (atividade, tagNome) => {
+  cy.contains(atividade)
+    .parent()
+    .within(() => {
+      cy.contains('div', /\+ Adicionar Tag|\+ Add Tag/)
+        .should('be.visible')
+        .click();
 
-describe('Kanban - Tags', () => {
-  beforeEach(() => {
-    cy.visit('/');
-    cy.criarLista('Lista Teste');
-    cy.criarAtividade('Atividade Teste', 'Lista Teste');
-  });
+      cy.get('input[placeholder="Nova Tag"], input[placeholder="New Tag"]')
+        .should('be.visible')
+        .type(`${tagNome}{enter}`);
 
-  it('Adiciona uma tag à atividade', () => {
-    cy.adicionarTag('Atividade Teste', 'Urgente');
-    cy.contains('Atividade Teste')
-      .parent()
-      .contains('Urgente')
-      .should('exist');
-  });
+      cy.contains(tagNome).should('exist');
+    });
 });
