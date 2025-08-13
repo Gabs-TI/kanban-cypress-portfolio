@@ -8,7 +8,7 @@ Cypress.Commands.add('criarLista', (nome) => {
     .should('be.visible')
     .click();
 
-  cy.get('input[placeholder="Nova Lista"], input[placeholder="New List"]', { timeout: 10000 })
+  cy.get('div.custom-input input[type="text"]')
     .should('be.visible')
     .type(`${nome}{enter}`);
 
@@ -16,7 +16,7 @@ Cypress.Commands.add('criarLista', (nome) => {
 });
 
 // Comando para criar uma atividade dentro de uma lista
-Cypress.Commands.add('criarAtividade', (nome, lista = 'To Do') => {
+Cypress.Commands.add('criarAtividade', (nomeTarefa, lista = 'To Do') => {
   cy.contains(lista, { timeout: 10000 })
     .parent()
     .within(() => {
@@ -24,9 +24,9 @@ Cypress.Commands.add('criarAtividade', (nome, lista = 'To Do') => {
         .should('be.visible')
         .click();
 
-      cy.get('input[placeholder="Nova Atividade"], input[placeholder="New Task"]', { timeout: 10000 })
-        .should('be.visible')
-        .type(`${nome}{enter}`);
+      cy.get('div.custom-input input[type="text"]', { timeout: 10000 })
+       .should('be.visible')
+        .type(`${nomeTarefa}{enter}`);
 
       cy.contains(nome, { timeout: 10000 }).should('exist'); // Confirma que a atividade foi criada
     });
@@ -41,7 +41,7 @@ Cypress.Commands.add('adicionarTag', (atividade, tagNome) => {
         .should('be.visible')
         .click();
 
-      cy.get('input[placeholder="Nova Tag"], input[placeholder="New Tag"]', { timeout: 10000 })
+      cy.get('div.custom-input input[type="text"]', { timeout: 10000 })
         .should('be.visible')
         .type(`${tagNome}{enter}`);
 
