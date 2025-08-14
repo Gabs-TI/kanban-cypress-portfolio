@@ -17,20 +17,22 @@ Cypress.Commands.add('criarLista', (nome) => {
 
 // Comando para criar uma atividade dentro de uma lista
 Cypress.Commands.add('criarAtividade', (nomeTarefa, lista = 'Lista de Teste') => {
-  cy.contains(lista, { timeout: 10000 })
-    .parent()
+  // Encontra o título da lista e pega o container da lista
+  cy.contains('h1', lista, { timeout: 10000 })
+    .closest('div[id$="CreateTask"]') // seleciona o container que tem o botão de criar tarefa
     .within(() => {
       cy.contains('div.custom-input', 'Adicionar Tarefa')
         .should('be.visible')
         .click();
 
       cy.get('div.custom-input input[type="text"]', { timeout: 10000 })
-         .should('be.visible')
+        .should('be.visible')
         .type(`${nomeTarefa}{enter}`);
 
       cy.contains(nomeTarefa, { timeout: 10000 }).should('exist'); // Confirma que a atividade foi criada
     });
 });
+
 
 // Comando para adicionar uma tag a uma atividade
 Cypress.Commands.add('adicionarTag', (atividade, tagNome) => {
